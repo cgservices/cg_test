@@ -60,6 +60,6 @@ RUN chmod 0664 /app/log
 RUN mkdir -p /app/tmp/cache
 RUN chown -Rf app /app/tmp/cache
 
-RUN /sbin/my_init
+CMD ["/sbin/my_init"]
 
 EXPOSE 80

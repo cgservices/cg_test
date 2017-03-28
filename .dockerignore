@@ -1,0 +1,23 @@
+# Ignore Docker files
+Dockerfile
+.dockerignore
+docker-compose.yml
+docker_build.sh
+
+# Git files
+.git*
+
+# Ignore all logfiles and tempfiles.
+log/*
+tmp/*
+
+# Ignore Apple file system files
+**.DS_Store
+
+# Ignore other files
+/.idea/
+
+README.*
+.ruby-gemset
+.ruby-version
+.travis.yml

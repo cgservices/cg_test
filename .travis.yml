@@ -1,0 +1,25 @@
+sudo: required
+
+services:
+  - docker
+
+before_install:
+  - docker login -u="$DOCKER_USERNAME" -p="$DOCKER_PASSWORD"
+  - docker build -t cg_test .
+
+script:
+  - docker run cg_test bundle exec rake test
+
+deploy:
+  provider: elasticbeanstalk
+  access_key_id: $ELASTIC_BEANSTALK_ACCESS_KEY_ID
+  secret_access_key:
+    secure: $ELASTIC_BEANSTALK_SECRET_ACCESS_KEY
+  region: "eu-central-1"
+  app: "cg_test"
+  env: "cg_test_env"
+  bucket_name: "cg-elasticbeanstalk"
+
+notifications:
+  email:
+    - pieter@cg.nl

@@ -1,18 +1,15 @@
 # See https://github.com/phusion/passenger-docker
-FROM phusion/passenger-ruby24
+FROM phusion/passenger-ruby23:0.9.19
 MAINTAINER Pieter Martens "pieter@cg.nl"
+
+ENV RAILS_ENV=production
+ENV PASSENGER_APP_ENV=production
 
 # Set correct environment variables.
 ENV HOME /root
 
 # Use baseimage-docker's init process.
 CMD ["/sbin/my_init"]
-
-# Clean up APT when done.
-RUN apt-get clean && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
-
-# Allow all host's
-RUN echo "StrictHostKeyChecking no " > /root/.ssh/config
 
 # Install apt based dependencies required to run Rails as
 # well as RubyGems. As the Ruby image itself is based on a
@@ -40,10 +37,10 @@ RUN rm -f /etc/service/nginx/down
 
 # Create Nginx environment
 RUN rm /etc/nginx/sites-enabled/default
-ADD vhost.conf /etc/nginx/sites-enabled/dcgw.conf
+ADD vhost.conf /etc/nginx/sites-enabled/vhost.conf
 ADD http.conf /etc/nginx/conf.d/http.conf
 ADD env.conf /etc/nginx/main.d/env.conf
-VOLUME /var/log/nginx/log
+VOLUME /var/log/nginx
 
 # Create application environment
 ADD . /app
@@ -51,15 +48,18 @@ WORKDIR /app
 
 # Using temporary Github SSH key and excute bundler
 RUN gem install bundler
-RUN bundle install --jobs 4 --retry 5
+RUN bundle install --jobs 4 --retry 5 --without development
 
 # Create log folder
 RUN mkdir -p /app/log
 RUN chmod 0664 /app/log
 
 RUN mkdir -p /app/tmp/cache
-RUN chown -Rf app /app/tmp/cache
 
-CMD ["/sbin/my_init"]
+# Change owner
+RUN chown app:app -Rf /app
+
+# Clean up APT when done.
+RUN apt-get clean && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
 
 EXPOSE 80

@@ -11,7 +11,7 @@ script:
 
 after_success:
    - docker login -u="$DOCKER_USERNAME" -p="$DOCKER_PASSWORD"
-   - docker tag cg_test creativegroup/cg_test
+   - docker tag cg_test creativegroup/cg_testgit
    - docker push creativegroup/cg_test
 
 #deploy:

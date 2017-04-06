@@ -21,3 +21,4 @@ README.*
 .ruby-gemset
 .ruby-version
 .travis.yml
+.elasticbeanstalk

@@ -4,15 +4,20 @@ services:
   - docker
 
 before_install:
-  - docker build -t cg_test .
+  - docker build -t creativegroup/cg_test .
 
 script:
   - docker run cg_test ls
 
 after_success:
    - docker login -u="$DOCKER_USERNAME" -p="$DOCKER_PASSWORD"
-   - docker tag cg_test creativegroup/cg_testgit
    - docker push creativegroup/cg_test
+   - sudo apt-get install python3.4
+   - curl -O https://bootstrap.pypa.io/get-pip.py
+   - python3 get-pip.py --user
+   - export PATH=LOCAL_PATH:$PATH
+   - pip install awsebcli --upgrade --user
+
 
 #deploy:
 #  provider: elasticbeanstalk

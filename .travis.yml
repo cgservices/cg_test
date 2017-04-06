@@ -17,6 +17,8 @@ after_success:
    - python3 get-pip.py --user
    - export PATH=LOCAL_PATH:$PATH
    - pip install awsebcli --upgrade --user
+   - eb use $ELASTIC_BEANSTALK_ENVIRONMENT
+   - eb deploy --quiet
 
 
 #deploy:

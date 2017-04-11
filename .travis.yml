@@ -17,9 +17,10 @@ after_success:
    - python3 get-pip.py --user
    - export PATH=LOCAL_PATH:$PATH
    - pip install awsebcli --upgrade --user
-   - eb --version
-   - eb create --quiet
+#   - eb --version
+#   - eb create --quiet
    - eb use $ELASTIC_BEANSTALK_ENVIRONMENT
+   - eb setenv SECRET_KEY_BASE=$SECRET_KEY_BASE RAILS_ENV=production PASSENGER_APP_ENV=production
    - eb deploy --quiet --staged
 
 

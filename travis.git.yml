@@ -1,0 +1,28 @@
+sudo: required
+
+services:
+  - docker
+
+before_install:
+  - docker build -t creativegroup/cg_test .
+
+script:
+  - docker run creativegroup/cg_test ls
+
+after_success:
+   - docker login -u="$DOCKER_USERNAME" -p="$DOCKER_PASSWORD"
+   - docker push creativegroup/cg_test
+
+deploy:
+  provider: elasticbeanstalk
+  access_key_id: $ELASTIC_BEANSTALK_ACCESS_KEY_ID
+  secret_access_key:
+    secure: $ELASTIC_BEANSTALK_SECRET_ACCESS_KEY
+  region: "eu-central-1"
+  app: "cg_test"
+  env: "cg_test_dev"
+  bucket_name: "elasticbeanstalk-eu-central-1-502880010667"
+
+notifications:
+  email:
+    - pieter@cg.nl

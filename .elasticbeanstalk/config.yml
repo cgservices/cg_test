@@ -1,7 +1,9 @@
 branch-defaults:
   master:
-    environment: Custom-env
+    environment: cg-test-dev
     group_suffix: null
+deploy:
+  artifact: ./Dockerrun.aws.json
 environment-defaults:
   cg-test-dev:
     branch: null
@@ -17,7 +19,5 @@ global:
   platform_version: null
   profile: null
   repository: null
-  sc: git
+  sc: null
   workspace_type: Application
-deploy:
-  artifact: Dockerrun.aws.json

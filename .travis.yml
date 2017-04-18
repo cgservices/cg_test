@@ -17,23 +17,10 @@ after_success:
    - python3 get-pip.py --user
    - export PATH=LOCAL_PATH:$PATH
    - pip install awsebcli --upgrade --user
-#   - eb --version
-#   - eb create --quiet
    - eb use $ELASTIC_BEANSTALK_ENVIRONMENT
    - eb setenv SECRET_KEY_BASE=$SECRET_KEY_BASE RAILS_ENV=production PASSENGER_APP_ENV=production
    - eb deploy --quiet --staged
 
-
-#deploy:
-#  provider: elasticbeanstalk
-#  access_key_id: $ELASTIC_BEANSTALK_ACCESS_KEY_ID
-#  secret_access_key:
-#    secure: $ELASTIC_BEANSTALK_SECRET_ACCESS_KEY
-#  region: "eu-central-1"
-#  app: "cg_test"
-#  env: "cg_test_env"
-#  bucket_name: "cg-elasticbeanstalk"
-
 notifications:
-  email:
+  email:e
     - pieter@cg.nl

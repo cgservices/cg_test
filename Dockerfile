@@ -56,9 +56,6 @@ RUN chmod 0664 /app/log
 
 RUN mkdir -p /app/tmp/cache
 
-# Assets Precompile
-RUN bundle exec assets:precompile
-
 # Change owner
 RUN chown app:app -Rf /app
 

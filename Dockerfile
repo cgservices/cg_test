@@ -59,6 +59,8 @@ RUN mkdir -p /app/tmp/cache
 # Change owner
 RUN chown app:app -Rf /app
 
+RUN bundle exec assets:precompile
+
 # Clean up APT when done.
 RUN apt-get clean && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
 

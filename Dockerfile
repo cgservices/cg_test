@@ -56,10 +56,11 @@ RUN chmod 0664 /app/log
 
 RUN mkdir -p /app/tmp/cache
 
+# Assets Precompile
+RUN bundle exec assets:precompile
+
 # Change owner
 RUN chown app:app -Rf /app
-
-RUN bundle exec assets:precompile
 
 # Clean up APT when done.
 RUN apt-get clean && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*

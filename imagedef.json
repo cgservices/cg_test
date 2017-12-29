@@ -1,0 +1,6 @@
+[
+  {
+    "name": "cg_test",
+    "imageUri": "502880010667.dkr.ecr.eu-west-1.amazonaws.com/cg_test:latest"
+  }
+]
